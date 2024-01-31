@@ -1,0 +1,144 @@
+Time: 30-01-2024 21:42:01
+--------------------------------------
+Top 100 MANGAS
+
+Shonen:
+	Total 27;
+	Ratio 0.27;
+
+Shojo:
+	Total 4;
+	Ratio 0.04;
+
+Seinen:
+	Total 28;
+	Ratio 0.28;
+
+Josei:
+	Total 1;
+	Ratio 0.01;
+
+Novel or Webcomic:
+		Total 40;
+		Ratio 0.40;
+--------------------------------------
+Time: 30-01-2024 21:42:32
+--------------------------------------
+Top 100 ANIMES
+
+Shonen:
+	Total 18;
+	Ratio 0.18;
+
+Shojo:
+	Total 1;
+	Ratio 0.01;
+
+Seinen:
+	Total 4;
+	Ratio 0.04;
+
+Josei:
+	Total 0;
+	Ratio 0.00;
+
+Original Work:
+		Total 77;
+		Ratio 0.77;
+--------------------------------------
+Time: 30-01-2024 21:52:11
+--------------------------------------
+Top 50 MANGAS
+
+Shonen:
+	Total 14;
+	Ratio 0.28;
+
+Shojo:
+	Total 2;
+	Ratio 0.04;
+
+Seinen:
+	Total 17;
+	Ratio 0.34;
+
+Josei:
+	Total 0;
+	Ratio 0.00;
+
+Novel or Webcomic:
+		Total 17;
+		Ratio 0.34;
+--------------------------------------
+Time: 30-01-2024 21:52:56
+--------------------------------------
+Top 50 ANIMES
+
+Shonen:
+	Total 25;
+	Ratio 0.50;
+
+Shojo:
+	Total 1;
+	Ratio 0.02;
+
+Seinen:
+	Total 9;
+	Ratio 0.18;
+
+Josei:
+	Total 0;
+	Ratio 0.00;
+
+Original Work:
+		Total 15;
+		Ratio 0.30;
+--------------------------------------
+Time: 30-01-2024 22:01:39
+--------------------------------------
+Top 50 MANGAS
+
+Shonen:
+	Total 14;
+	Ratio 0.28;
+
+Shojo:
+	Total 2;
+	Ratio 0.04;
+
+Seinen:
+	Total 17;
+	Ratio 0.34;
+
+Josei:
+	Total 0;
+	Ratio 0.00;
+
+Novel or Webcomic:
+		Total 17;
+		Ratio 0.34;
+--------------------------------------
+Time: 30-01-2024 22:02:23
+--------------------------------------
+Top 50 ANIMES
+
+Shonen:
+	Total 25;
+	Ratio 0.50;
+
+Shojo:
+	Total 1;
+	Ratio 0.02;
+
+Seinen:
+	Total 9;
+	Ratio 0.18;
+
+Josei:
+	Total 0;
+	Ratio 0.00;
+
+Original Work:
+		Total 15;
+		Ratio 0.30;
+--------------------------------------
