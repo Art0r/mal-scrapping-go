@@ -11,7 +11,7 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
-func Scraper(is_manga bool) {
+func Scraper(is_manga bool) bool {
 
 	c := colly.NewCollector(
 		colly.AllowedDomains("anilist.co", "myanimelist.net"),
@@ -44,6 +44,8 @@ func Scraper(is_manga bool) {
 	data := setOutput(&demographicRelation, totalWorks, is_manga)
 
 	writeOutput(data)
+
+	return true
 
 }
 

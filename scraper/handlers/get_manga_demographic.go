@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	dt "github.com/Art0r/mal-scrapping/data_structures"
 	"strings"
 
@@ -13,11 +12,6 @@ func GetWorkDemographic(
 	worksList *dt.LinkedList,
 	demographicRelation *dt.DemographicRelation,
 	demographicXpath string) {
-
-	c.OnXML("//*[@class='h1-title']/span",
-		func(e *colly.XMLElement) {
-			fmt.Println("WORK TITLE:", e.Text)
-		})
 
 	callDemographicScraper(c, demographicRelation, demographicXpath)
 
