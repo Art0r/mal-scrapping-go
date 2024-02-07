@@ -2,47 +2,26 @@ package main
 
 import (
 	"fmt"
-	"sync"
 	"time"
 
 	"github.com/Art0r/mal-scrapping/scraper"
+	wop "github.com/Art0r/mal-scrapping/worker_pools"
 )
 
 func main() {
-	starTime := time.Now()
 
-	numberOfJobs := 2
-	var wg sync.WaitGroup
+	start := time.Now()
 
-	jobs := make(chan bool, 2)
-	results := make(chan bool, 2)
-	
-	args := []bool{true, false}
-
-	for i := 0; i < numberOfJobs; i++ {
-		wg.Add(1)
-		go worker(i, jobs, results, &wg)
+	jobs := []wop.Job{
+		{ID: 1, Excute: func() interface{} { return scraper.Scraper(false) }},
+		{ID: 2, Excute: func() interface{} { return scraper.Scraper(true) }},
 	}
 
-	for i := 0; i < numberOfJobs; i++ {
-		jobs <- args[i]
-	}
+	workerPools := wop.WorkerPools{}
 
-	close(jobs)
-	wg.Wait()
-	close(results)
+	workerPools.NewWorkerPools(jobs).Start()
 
-	elapsed := time.Since(starTime)
+	elapsed := time.Since(start)
 
-	fmt.Println("Elapsed time: ", elapsed)
-}
-
-func worker(id int, jobs <-chan bool, results chan<- bool, wg *sync.WaitGroup)  {
-	defer wg.Done()
-	
-	for job := range jobs {
-		fmt.Printf("FUNCTION %d STARTED\n", id + 1)
-		results <- scraper.Scraper(job)
-		fmt.Printf("FUNCTION %d FINISHED\n", id + 1)
-	}
+	fmt.Println(elapsed)
 }
