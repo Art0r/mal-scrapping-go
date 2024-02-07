@@ -17,35 +17,42 @@ type Worker struct {
 	ResultsQueue *chan Result
 }
 
-type WorkerPools struct {
-	NumberOfJobs int
-	JobsQueue    chan Job
-	ResultsQueue chan Result
-	jobs         []Job
+type NewWorkerPoolsParams struct {
+	Jobs            []Job
+	NumberOfWorkers int
 }
 
-func (wp *WorkerPools) NewWorkerPools(jobs []Job) *WorkerPools {
+type WorkerPools struct {
+	NumberOfWorkers int
+	numberOfJobs    int
+	jobsQueue       chan Job
+	resultsQueue    chan Result
+	jobs            []Job
+}
+
+func (wp *WorkerPools) NewWorkerPools(newWorkerPoolsParams NewWorkerPoolsParams) *WorkerPools {
 	return &WorkerPools{
-		NumberOfJobs: len(jobs) - 1,
-		JobsQueue:    make(chan Job, len(jobs)-1),
-		ResultsQueue: make(chan Result, len(jobs)-1),
-		jobs:         jobs,
+		numberOfJobs:    len(newWorkerPoolsParams.Jobs) - 1,
+		jobsQueue:       make(chan Job, len(newWorkerPoolsParams.Jobs)-1),
+		resultsQueue:    make(chan Result, len(newWorkerPoolsParams.Jobs)-1),
+		jobs:            newWorkerPoolsParams.Jobs,
+		NumberOfWorkers: newWorkerPoolsParams.NumberOfWorkers,
 	}
 }
 
 func (wp *WorkerPools) Start() {
-	for w := 0; w <= 3; w++ {
-		worker := Worker{ID: w, JobsQueue: &wp.JobsQueue, ResultsQueue: &wp.ResultsQueue}
+	for w := 0; w <= wp.NumberOfWorkers; w++ {
+		worker := Worker{ID: w, JobsQueue: &wp.jobsQueue, ResultsQueue: &wp.resultsQueue}
 		go worker.Work()
 	}
 
-	for j := 0; j <= wp.NumberOfJobs; j++ {
-		wp.JobsQueue <- wp.jobs[j]
+	for j := 0; j <= wp.numberOfJobs; j++ {
+		wp.jobsQueue <- wp.jobs[j]
 	}
-	close(wp.JobsQueue)
+	close(wp.jobsQueue)
 
-	for a := 0; a <= wp.NumberOfJobs; a++ {
-		<-wp.ResultsQueue
+	for a := 0; a <= wp.numberOfJobs; a++ {
+		<-wp.resultsQueue
 	}
 }
 
