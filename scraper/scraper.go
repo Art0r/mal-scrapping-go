@@ -2,11 +2,12 @@ package scraper
 
 import (
 	"fmt"
-	dt "github.com/Art0r/mal-scrapping/data_structures"
-	handlers "github.com/Art0r/mal-scrapping/scraper/handlers"
 	"log"
 	"os"
 	"time"
+
+	dt "github.com/Art0r/mal-scrapping/data_structures"
+	handlers "github.com/Art0r/mal-scrapping/scraper/handlers"
 
 	"github.com/gocolly/colly/v2"
 )
@@ -43,7 +44,8 @@ func Scraper(is_manga bool) bool {
 
 	data := setOutput(&demographicRelation, totalWorks, is_manga)
 
-	writeOutput(data)
+	fmt.Println(data)
+	// writeOutput(data)
 
 	return true
 

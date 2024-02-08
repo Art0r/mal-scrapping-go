@@ -1,22 +1,5 @@
 package workerpools
 
-import "fmt"
-
-type Job struct {
-	ID     int
-	Excute func() interface{}
-}
-
-type Result struct {
-	jobID int
-}
-
-type Worker struct {
-	ID           int
-	JobsQueue    *chan Job
-	ResultsQueue *chan Result
-}
-
 type NewWorkerPoolsParams struct {
 	Jobs            []Job
 	NumberOfWorkers int
@@ -41,7 +24,7 @@ func (wp *WorkerPools) NewWorkerPools(newWorkerPoolsParams NewWorkerPoolsParams)
 }
 
 func (wp *WorkerPools) Start() {
-	for w := 0; w <= wp.NumberOfWorkers; w++ {
+	for w := 1; w <= wp.NumberOfWorkers; w++ {
 		worker := Worker{ID: w, JobsQueue: &wp.jobsQueue, ResultsQueue: &wp.resultsQueue}
 		go worker.Work()
 	}
@@ -53,14 +36,5 @@ func (wp *WorkerPools) Start() {
 
 	for a := 0; a <= wp.numberOfJobs; a++ {
 		<-wp.resultsQueue
-	}
-}
-
-func (w *Worker) Work() {
-	for j := range *w.JobsQueue {
-		fmt.Println("worker", w.ID, "started  job", j)
-		j.Excute()
-		fmt.Println("worker", w.ID, "finished job", j)
-		*w.ResultsQueue <- Result{jobID: j.ID}
 	}
 }
