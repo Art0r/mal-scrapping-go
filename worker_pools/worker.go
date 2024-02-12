@@ -3,16 +3,16 @@ package workerpools
 import "fmt"
 
 type Job struct {
-	ID     int
+	ID     interface{}
 	Excute func() interface{}
 }
 
 type Result struct {
-	jobID int
+	jobID interface{}
 }
 
 type Worker struct {
-	ID           int
+	ID           interface{}
 	JobsQueue    *chan Job
 	ResultsQueue *chan Result
 }

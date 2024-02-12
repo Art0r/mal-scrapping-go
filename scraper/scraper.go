@@ -37,7 +37,7 @@ func Scraper(is_manga bool) bool {
 
 	worksList := handlers.GetTotalMangaList(c, itemXpath, is_manga)
 
-	handlers.GetWorkDemographic(c,
+	handlers.GetWorkDemographicConcurrently(c,
 		&worksList, &demographicRelation, demographicXpath)
 
 	totalWorks := calculateTotalWorks(&demographicRelation)

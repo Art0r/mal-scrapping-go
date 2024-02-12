@@ -1,10 +1,13 @@
 package handlers
 
 import (
-	dt "github.com/Art0r/mal-scrapping/data_structures"
 	"strings"
 
+	dt "github.com/Art0r/mal-scrapping/data_structures"
+
 	"github.com/gocolly/colly/v2"
+
+	wop "github.com/Art0r/mal-scrapping/worker_pools"
 )
 
 func GetWorkDemographic(
@@ -13,6 +16,7 @@ func GetWorkDemographic(
 	demographicRelation *dt.DemographicRelation,
 	demographicXpath string) {
 
+	defer c.Wait()
 	callDemographicScraper(c, demographicRelation, demographicXpath)
 
 	current := worksList.Head
@@ -24,9 +28,48 @@ func GetWorkDemographic(
 
 		current = current.Next
 	}
+}
 
-	c.Wait()
+func GetWorkDemographicConcurrently(c *colly.Collector,
+	worksList *dt.LinkedList,
+	demographicRelation *dt.DemographicRelation,
+	demographicXpath string) {
 
+	defer c.Wait()
+	callDemographicScraper(c, demographicRelation, demographicXpath)
+
+	jobs := setJobs(c, worksList)
+
+	workerPools := wop.WorkerPools{}
+
+	wpParams := wop.NewWorkerPoolsParams{Jobs: *jobs, NumberOfWorkers: 4}
+
+	workerPools.NewWorkerPools(wpParams).Start()
+
+}
+
+func setJobs(c *colly.Collector, worksList *dt.LinkedList) *[]wop.Job {
+	current := worksList.Head
+
+	var jobs []wop.Job
+	var i int
+
+	visitAddress := func() interface{} {
+		for current != nil {
+			if visited, _ := c.HasVisited(current.Data); !visited {
+				c.Visit(current.Data)
+			}
+
+			i = i + 1
+			current = current.Next
+		}
+
+		return 0
+	}
+
+	jobs = append(jobs, wop.Job{ID: i, Excute: visitAddress})
+
+	return &jobs
 }
 
 func callDemographicScraper(
